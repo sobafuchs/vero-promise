@@ -4,7 +4,7 @@ const status = require('http-status');
 const co = require('co');
 const superagent = require('superagent');
 const assert = require('assert');
-const vero = require('./config')();
+const vero = require('./config');
 
 describe('vero-promise', function() {
   describe('heartbeat', function() {

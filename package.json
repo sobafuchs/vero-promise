@@ -4,13 +4,15 @@
   "description": "A simple wrapper based on promises for Vero's public API",
   "main": "index.js",
   "dependencies": {
-    "http-status": "0.2.0",
-    "mocha": "2.3.4",
     "superagent": "1.6.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "co": "4.6.0",
+    "http-status": "0.2.0",
+    "mocha": "2.3.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha test.js"
   },
   "repository": {
     "type": "git",
