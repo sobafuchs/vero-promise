@@ -17,7 +17,7 @@ module.exports = vero(yourAuthToken);
 Then, when you need to use vero:
 
 ```
-var vero = require('vero')();
+var vero = require('vero');
 
 vero.trackUser('randomId', 'randomEmail', {firstName: 'gandalf'})
   .then(function(res) {
