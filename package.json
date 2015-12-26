@@ -1,0 +1,25 @@
+{
+  "name": "vero-promise",
+  "version": "1.0.0",
+  "description": "A simple wrapper based on promises for Vero's public API",
+  "main": "index.js",
+  "dependencies": {
+    "http-status": "0.2.0",
+    "mocha": "2.3.4",
+    "superagent": "1.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/varunjayaraman/vero-promise.git"
+  },
+  "author": "Varun Jayaraman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/varunjayaraman/vero-promise/issues"
+  },
+  "homepage": "https://github.com/varunjayaraman/vero-promise"
+}
