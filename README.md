@@ -41,6 +41,6 @@ co(function*() {
 });
 ```
 
-4. To run the tests, either create a `config.js` file and create a vero instance with your auth token, or edit the part in `test.js` where vero is required in and pass in the auth token there. Then, run `mocha test.js`.
+4.To run the tests, either create a `config.js` file and create a vero instance with your auth token, or edit the part in `test.js` where vero is required in and pass in the auth token there. Then, run `mocha test.js`.
 
 Feel free to reach out if you have any questions or find any bugs.
