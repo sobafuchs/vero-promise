@@ -200,7 +200,7 @@ describe('vero-promise', function() {
   describe('events', function() {
     it('tracks an event', function(done) {
       this.timeout(2000);
-      vero.trackEvent('testtag', 'testtag@sixplus.com', 'new-user-signup')
+      vero.trackEvent('charmander', 'charmander@sixplus.com', 'registration')
         .then(function(res) {
           assert.ok(res.ok);
           done();
@@ -227,6 +227,30 @@ describe('vero-promise', function() {
         .then(null, function(err) {
           done(err);
         });
+    });
+
+    it('creates a user and tracks and event', function(done) {
+      var id = 'pikachu';
+      var email = 'pikachu@sixplus.com';
+      var userData = {
+        name: 'pika',
+        sneeze: 'chu',
+        lol: 'wut'
+      };
+      var eventData = {
+        location: 'bk warehouse'
+      };
+      var eventName = 'registration';
+
+      vero.createUserAndTrackEvent(id, email, userData, eventName, eventData)
+        .then(function(res) {
+          assert.ok(res.ok);
+          done();
+        })
+        .then(null, function(err) {
+          console.error(err);
+          done(err);
+        })
     });
 
   });

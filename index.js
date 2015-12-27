@@ -249,5 +249,40 @@ module.exports = (function vero(authToken) {
     })
   };
 
+  vero.createUserAndTrackEvent = function createUserAndTrackEvent(id, email, userData, eventName, eventData) {
+    var p1 = new Promise(function(resolve, reject) {
+      superagent
+        .post(apiBase + '/users/track')
+        .send({
+          auth_token: authToken,
+          id: id,
+          email: email,
+          data: userData || {}
+        })
+        .accept(acceptHeader)
+        .end(function(err, res) {
+          if (err) return reject(err);
+          return resolve(res);
+        });
+    });
+    var p2 = new Promise(function(resolve, reject) {
+      superagent
+        .post(apiBase + '/events/track')
+        .send({
+          auth_token: authToken,
+          identity: {id: id, email: email},
+          event_name: eventName,
+          data: eventData || {}
+        })
+        .accept(acceptHeader)
+        .end(function(err, res) {
+          if (err) return reject(err);
+          return resolve(res);
+        });
+    });
+
+    return Promise.all([p1, p2]);
+  };
+
   return vero;
 });
