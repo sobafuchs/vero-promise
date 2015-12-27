@@ -76,6 +76,34 @@ describe('vero-promise', function() {
         });
     });
 
+    it('tracks multiple users', function(done) {
+      var users = [
+        {id: 'id1', email: 'id1@sixplus.com'},
+        {id: 'id2', email: 'id2@sixplus.com', data: {name: 'id2'}},
+        {id: 'id3', email: 'id3@sixplus.com', data: {name: 'id3'}}
+      ];
+      console.log(users);
+      vero.trackMultipleUsers(users)
+        .then(function(res) {
+          assert.ok(res.ok);
+          done();
+        })
+        .then(null, function(err) {
+          done(err);
+        });
+    });
+
+      it('trackMultipleUsers promise resolves with an empty array of users', function(done) {
+        vero.trackMultipleUsers([])
+          .then(function() {
+            done(new Error('should have rejected'));
+          })
+          .then(null, function(err) {
+            assert.ok(err);
+            done();
+          });
+      });
+
     it('trackUser updates a user except for the user\'s id', function(done) {
       vero.trackUser('cheese', 'pwned@sixplus.com', {firstName: 'asdf'})
         .then(function(res) {
@@ -201,22 +229,6 @@ describe('vero-promise', function() {
         });
     });
 
-    it('tracks multiple users', function(done) {
-      var users = [
-        {id: 'id1', email: 'id1@sixplus.com'},
-        {id: 'id2', email: 'id2@sixplus.com', data: {name: 'id2'}},
-        {id: 'id3', email: 'id3@sixplus.com', data: {name: 'id3'}}
-      ];
-
-      vero.trackMultipleUsers(users)
-        .then(function(res) {
-          assert.ok(res.ok);
-          done();
-        })
-        .then(null, function(err) {
-          done(err);
-        });
-    });
   });
 
 });

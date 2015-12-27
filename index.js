@@ -39,7 +39,10 @@ module.exports = (function vero(authToken) {
   vero.trackMultipleUsers = function trackMultipleUsers(users, cb) {
     return new Promise(function(resolve, reject) {
       if (!users || !Array.isArray(users)) {
-        return reject(users);
+        return reject(new Error('Invalid type passed in as parameters: must be array'));
+      }
+      if (!users.length) {
+        return reject(new Error('Users array is empty'));
       }
 
       var promises = [];
@@ -55,7 +58,10 @@ module.exports = (function vero(authToken) {
           superagent
             .post(apiBase + '/users/track')
             .send(payload)
-            .accept(acceptHeader);
+            .accept(acceptHeader)
+            .end(function(err, res) {
+              if (err) return reject(err);
+            })
         });
       }
 
