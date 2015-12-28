@@ -229,7 +229,11 @@ describe('vero-promise', function() {
         });
     });
 
-    it('creates a user and tracks and event', function(done) {
+  });
+
+  describe('events and users', function() {
+
+    it('creates a user and tracks an event', function(done) {
       var id = 'pikachu';
       var email = 'pikachu@sixplus.com';
       var userData = {
@@ -244,13 +248,40 @@ describe('vero-promise', function() {
 
       vero.createUserAndTrackEvent(id, email, userData, eventName, eventData)
         .then(function(res) {
-          assert.ok(res.ok);
+          console.log('res', res);
+          assert.ok(res[0].ok);
+          assert.ok(res[1].ok);
           done();
         })
         .then(null, function(err) {
           console.error(err);
           done(err);
         })
+    });
+
+    it('trackOneEventForMany users', function(done) {
+      var users = [
+        {id: 'id4', email: 'id4@sixplus.com'},
+        {id: 'id5', email: 'id5@sixplus.com'},
+        {id: 'id6', email: 'id6@sixplus.com'}
+      ];
+
+      var eventData = {
+        location: 'bk warehouse'
+      };
+      var eventName = 'registration';
+
+      vero.trackOneEventForMany(users, eventName, eventData)
+        .then(function(res) {
+          assert.ok(res[0].ok);
+          assert.ok(res[1].ok);
+          assert.ok(res[2].ok);
+          done();
+        })
+        .then(null, function(err) {
+          console.error(err);
+          done(err);
+        });
     });
 
   });

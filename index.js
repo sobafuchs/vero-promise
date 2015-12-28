@@ -223,6 +223,46 @@ module.exports = (function vero(authToken) {
     });
   };
 
+  vero.trackOneEventForMany = function trackOneEventForMany(idsAndEmails, eventName, eventData) {
+    return new Promise(function(resolve, reject) {
+      if (!idsAndEmails || !Array.isArray(idsAndEmails)) {
+        return reject(new Error('trackOneEventForMany requires an array as its first paramter'));
+      }
+      if (!idsAndEmails.length) {
+        return reject(new Error('Array of userIds and emails is empty'));
+      }
+      if (idsAndEmails.length === 1) {
+        var theUser = idsAndEmails[0];
+        if (!theUser.id || !theUser.email) {
+          return reject(new Error('trackOneEventForMany requires each user to have both an id and an email address'));
+        }
+      }
+
+      var promises = [];
+      for (var i = 0; i < idsAndEmails.length; i++) {
+        var payload = {
+          auth_token: authToken,
+          identity: {id: idsAndEmails[i].id, email: idsAndEmails[i].email},
+          event_name: eventName,
+          data: eventData
+        };
+
+        promises[i] = new Promise(function(resolve, reject) {
+          superagent
+            .post(apiBase + '/events/track')
+            .send(payload)
+            .accept(acceptHeader)
+            .end(function(err, res) {
+              if (err) return reject(err);
+              return resolve(res);
+            });
+        });
+      };
+
+      return resolve(Promise.all(promises));
+    });
+  };
+
   vero.trackMultipleEvents = function trackMultipleEvents(id, email, events, cb) {
     return new Promise(function(resolve, reject) {
       if (!events || !Array.isArray(events)) {
