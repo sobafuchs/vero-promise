@@ -231,9 +231,6 @@ module.exports = (function vero(authToken) {
       if (!idsAndEmails.length) {
         return reject(new Error('Array of userIds and emails is empty'));
       }
-      if (idsAndEmails.length === 1) {
-        var theUser = idsAndEmails[0];
-      }
 
       var promises = [];
       for (var i = 0; i < idsAndEmails.length; i++) {
