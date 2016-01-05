@@ -233,13 +233,13 @@ module.exports = (function vero(authToken) {
       }
       if (idsAndEmails.length === 1) {
         var theUser = idsAndEmails[0];
-        if (!theUser.id || !theUser.email) {
-          return reject(new Error('trackOneEventForMany requires each user to have both an id and an email address'));
-        }
       }
 
       var promises = [];
       for (var i = 0; i < idsAndEmails.length; i++) {
+        if (!idsAndEmails[i].id) {
+          return reject(new Error('trackOneEventForMany requires each user to have an id'));
+        }
         var payload = {
           auth_token: authToken,
           identity: {id: idsAndEmails[i].id, email: idsAndEmails[i].email},
