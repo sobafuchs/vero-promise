@@ -1,6 +1,6 @@
 {
   "name": "vero-promise",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A simple wrapper based on promises for Vero's public API",
   "main": "index.js",
   "dependencies": {
