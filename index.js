@@ -36,7 +36,7 @@ module.exports = (function vero(authToken) {
     });
   };
 
-  vero.trackMultipleUsers = function trackMultipleUsers(users, cb) {
+  vero.trackMultipleUsers = function trackMultipleUsers(users) {
     return new Promise(function(resolve, reject) {
       if (!users || !Array.isArray(users)) {
         return reject(new Error('Invalid type passed in as parameters: must be array'));
@@ -61,6 +61,7 @@ module.exports = (function vero(authToken) {
             .accept(acceptHeader)
             .end(function(err, res) {
               if (err) return reject(err);
+              return resolve(res);
             })
         });
       }
