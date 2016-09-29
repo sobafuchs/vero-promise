@@ -66,7 +66,7 @@ module.exports = (function vero(authToken) {
         });
       }
 
-      return Promise.all(promises);
+      return resolve(Promise.all(promises));
     });
   };
 
@@ -283,8 +283,8 @@ module.exports = (function vero(authToken) {
           .accept(acceptHeader);
         });
       };
-      return Promise.all(promises);
-    })
+      return resolve(Promise.all(promises));
+    });
   };
 
   vero.createUserAndTrackEvent = function createUserAndTrackEvent(id, email, userData, eventName, eventData) {
